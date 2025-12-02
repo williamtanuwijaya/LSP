@@ -1,157 +1,207 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Penerimaan Mahasiswa Baru - Ucok University</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet" />
 
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            sans: ['Inter', 'sans-serif'],
-                        },
-                        colors: {
-                            // Kita pakai warna standar Tailwind saja untuk tombol agar aman
-                            secondary: '#0F172A', 
-                        }
-                    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Wajib 'class' agar kita bisa kontrol manual
+            theme: {
+                extend: {
+                    colors: { primary: '#2563EB', secondary: '#0F172A' }
                 }
             }
-        </script>
-    @endif
-</head>
-<body class="antialiased font-sans text-slate-600 bg-slate-50">
+        }
+    </script>
 
-    <nav class="bg-white/90 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-slate-200 shadow-sm">
+    <style>
+        .video-docker video {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .video-docker::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 1;
+        }
+    </style>
+
+    <script>
+        // Logika Baru: 
+        // Cek apakah user PERNAH memilih 'light' sebelumnya?
+        if (localStorage.getItem('theme') === 'light') {
+            // Jika pernah pilih light, matikan dark mode
+            document.documentElement.classList.remove('dark');
+        } else {
+            // Jika belum pernah pilih (pengunjung baru) ATAU pernah pilih dark:
+            // PAKSA NYALAKAN DARK MODE
+            document.documentElement.classList.add('dark');
+            // Simpan state default ke dark
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
+</head>
+<body class="antialiased font-sans text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+
+    <nav class="fixed w-full z-50 top-0 start-0 transition-all duration-300 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center rtl:space-x-reverse">
-                <span class="self-center text-2xl font-bold whitespace-nowrap text-slate-900">Ucok University</span>
+                <span class="self-center text-2xl font-extrabold whitespace-nowrap text-slate-900 dark:text-white tracking-tight transition-colors">Ucok University</span>
             </a>
             
-            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <a href="{{ route('login') }}" class="text-slate-900 hover:text-blue-600 font-medium rounded-lg text-sm px-4 py-2 text-center md:mr-2 transition">
-                    Masuk
-                </a>
-                
-                <a href="{{ route('register') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-md shadow-blue-500/20">
-                    Daftar Sekarang
-                </a>
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
+                <div class="hidden md:flex space-x-3 mr-4">
+                    <a href="{{ route('login') }}" class="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-lg text-sm px-4 py-2 text-center transition">
+                        Masuk
+                    </a>
+                    <a href="{{ route('register') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-lg shadow-blue-600/30">
+                        Daftar Sekarang
+                    </a>
+                </div>
+
+                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
             </div>
         </div>
     </nav>
 
-    <section class="bg-white pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-            <div class="mr-auto place-self-center lg:col-span-7">
-                <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-slate-900">
-                    Wujudkan Masa Depan di <br>
-                    <span class="text-blue-600">Ucok University</span>
-                </h1>
-                <p class="max-w-2xl mb-6 font-light text-slate-500 lg:mb-8 md:text-lg lg:text-xl">
-                    Bergabunglah dengan ribuan mahasiswa berprestasi. Penerimaan Mahasiswa Baru Tahun Ajaran 2025/2026 kini telah dibuka dengan kurikulum internasional.
-                </p>
-                <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4">
-                    <a href="{{ route('register') }}" class="inline-flex justify-center items-center py-3 px-6 text-base font-medium text-center text-white rounded-lg bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition shadow-lg shadow-blue-500/30 transform hover:-translate-y-1">
-                        Daftar Online
-                        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
-                    <a href="#prodi" class="inline-flex justify-center items-center py-3 px-6 text-base font-medium text-center text-slate-900 rounded-lg border border-slate-300 hover:bg-slate-50 focus:ring-4 focus:ring-slate-100 transition">
-                        Lihat Program Studi
-                    </a>
-                </div>
+    <section class="relative h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden">
+        <div class="video-docker absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <video class="min-w-full min-h-full absolute object-cover" src="{{ asset('assets/videos/kampus.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
+        </div>
+
+        <div class="relative z-10 px-4 max-w-4xl mx-auto mt-16">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-600/90 text-white text-sm font-semibold mb-6 tracking-wide shadow-lg backdrop-blur-sm border border-blue-400">
+                Penerimaan Mahasiswa Baru 2025/2026
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight drop-shadow-md">
+                Wujudkan Masa Depan di <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">Ucok University</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
+                Kampus berbasis teknologi dengan kurikulum internasional. Bergabunglah dengan komunitas inovator masa depan.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="{{ route('register') }}" class="px-8 py-4 text-lg font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition transform hover:-translate-y-1 hover:shadow-2xl shadow-blue-600/40">Daftar Sekarang</a>
+                <a href="#prodi" class="px-8 py-4 text-lg font-bold text-white border border-white/30 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white hover:text-slate-900 transition transform hover:-translate-y-1">Lihat Program Studi</a>
             </div>
-            <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                <img 
-                    src="{{ asset('assets/ucok.png') }}" 
-                    alt="Mahasiswa Ucok University" 
-                    class="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition duration-700 border-4 border-white shadow-blue-200"
-                >
-            </div>
+        </div>
+        <div class="absolute bottom-10 z-10 animate-bounce">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </div>
     </section>
 
-    <section class="bg-slate-50 border-y border-slate-200">
-        <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-12 lg:px-6">
-            <dl class="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3">
-                <div class="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-sm">
-                    <dt class="mb-2 text-3xl md:text-4xl font-extrabold text-blue-600">A</dt>
-                    <dd class="font-medium text-slate-500">Akreditasi Institusi</dd>
-                </div>
-                <div class="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-sm">
-                    <dt class="mb-2 text-3xl md:text-4xl font-extrabold text-blue-600">15+</dt>
-                    <dd class="font-medium text-slate-500">Program Studi</dd>
-                </div>
-                <div class="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-sm">
-                    <dt class="mb-2 text-3xl md:text-4xl font-extrabold text-blue-600">5000+</dt>
-                    <dd class="font-medium text-slate-500">Alumni Sukses</dd>
-                </div>
-            </dl>
-        </div>
+    <section class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 relative z-20 -mt-8 mx-4 rounded-xl shadow-xl max-w-6xl lg:mx-auto p-8 transition-colors duration-300">
+        <dl class="grid gap-8 text-center sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-700">
+            <div class="flex flex-col items-center justify-center p-2">
+                <dt class="mb-2 text-4xl font-extrabold text-blue-600 dark:text-blue-400">A</dt>
+                <dd class="font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide text-sm">Akreditasi Institusi</dd>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2">
+                <dt class="mb-2 text-4xl font-extrabold text-blue-600 dark:text-blue-400">15+</dt>
+                <dd class="font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide text-sm">Program Studi</dd>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2">
+                <dt class="mb-2 text-4xl font-extrabold text-blue-600 dark:text-blue-400">5000+</dt>
+                <dd class="font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide text-sm">Alumni Sukses</dd>
+            </div>
+        </dl>
     </section>
 
-    <section class="bg-white py-16">
+    <section class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300">
         <div class="max-w-screen-xl px-4 mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-blue-600 font-semibold tracking-wide uppercase text-sm">Proses Seleksi</span>
-                <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Alur Pendaftaran</h2>
-                <p class="mt-4 text-lg text-slate-500">Mudah dan cepat, berikut langkah menjadi bagian dari Ucok University.</p>
+            <div class="text-center mb-16">
+                <span class="text-blue-600 dark:text-blue-400 font-bold tracking-wide uppercase text-sm">Galeri Kampus</span>
+                <h2 class="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Fasilitas & Kehidupan Kampus</h2>
+                <p class="mt-4 text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Lingkungan belajar modern yang dirancang untuk mendukung kreativitas dan kolaborasi mahasiswa.</p>
             </div>
-            
-            <div class="grid gap-8 md:grid-cols-3">
-                <div class="p-8 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600 font-bold text-2xl">1</div>
-                    <h3 class="mb-3 text-xl font-bold text-slate-900">Buat Akun</h3>
-                    <p class="text-slate-500 leading-relaxed">Klik tombol daftar dan isi data diri Anda untuk mendapatkan akses ke portal PMB yang terintegrasi.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-auto md:h-[500px]">
+                <div class="group relative overflow-hidden rounded-2xl col-span-1 md:col-span-2 lg:col-span-2 row-span-2 h-64 md:h-full shadow-lg border border-slate-200 dark:border-slate-800">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000&auto=format&fit=crop" alt="Gedung Utama" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">Gedung Rektorat Modern</h3>
+                            <p class="text-slate-200 text-sm">Pusat administrasi dan layanan mahasiswa terpadu.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-8 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600 font-bold text-2xl">2</div>
-                    <h3 class="mb-3 text-xl font-bold text-slate-900">Lengkapi Berkas</h3>
-                    <p class="text-slate-500 leading-relaxed">Upload dokumen persyaratan digital seperti Scan Ijazah/SKL, Pas Foto Terbaru, dan Kartu Keluarga.</p>
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=800&auto=format&fit=crop" alt="Perpustakaan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
+                        <span class="text-white font-semibold">Perpustakaan Digital</span>
+                    </div>
                 </div>
-                <div class="p-8 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600 font-bold text-2xl">3</div>
-                    <h3 class="mb-3 text-xl font-bold text-slate-900">Ujian & Hasil</h3>
-                    <p class="text-slate-500 leading-relaxed">Ikuti ujian seleksi berbasis komputer (CBT) secara online dan pantau hasil kelulusan realtime.</p>
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Mahasiswa" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
+                        <span class="text-white font-semibold">Diskusi Kelompok</span>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Auditorium" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
+                        <span class="text-white font-semibold">Co-Working Space</span>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" alt="Laboratorium" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
+                        <span class="text-white font-semibold">Lab Komputer</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-900 text-white pt-16 pb-8">
+    <footer class="bg-slate-900 dark:bg-slate-950 text-white pt-16 pb-8 border-t-4 border-blue-600 transition-colors duration-300">
         <div class="max-w-screen-xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <div class="mb-6 md:mb-0 text-center md:text-left">
-                    <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                        <span class="text-2xl font-bold">Ucok University</span>
-                    </div>
-                    <p class="text-slate-400 text-sm max-w-sm">Kampus modern berbasis teknologi untuk mencetak Generasi Emas Masa Depan Indonesia.</p>
+                    <span class="text-3xl font-extrabold tracking-tight text-white">Ucok University</span>
+                    <p class="text-slate-400 text-sm max-w-sm mt-2">Kampus modern berbasis teknologi untuk mencetak Generasi Emas Masa Depan Indonesia.</p>
                 </div>
                 <div class="flex space-x-8 text-sm font-medium text-slate-300">
-                    <a href="#" class="hover:text-white hover:underline transition">Tentang Kami</a>
-                    <a href="#" class="hover:text-white hover:underline transition">Program Studi</a>
-                    <a href="#" class="hover:text-white hover:underline transition">Bantuan</a>
-                    <a href="#" class="hover:text-white hover:underline transition">Kontak</a>
+                    <a href="#" class="hover:text-blue-400 hover:underline transition">Tentang Kami</a>
+                    <a href="#" class="hover:text-blue-400 hover:underline transition">Program Studi</a>
+                    <a href="#" class="hover:text-blue-400 hover:underline transition">Bantuan</a>
+                    <a href="#" class="hover:text-blue-400 hover:underline transition">Kontak</a>
                 </div>
             </div>
-            
             <div class="border-t border-slate-800 pt-8 mt-8 text-center">
-                <p class="text-slate-500 text-sm">
-                    &copy; {{ date('Y') }} Ucok University. All rights reserved.
-                </p>
+                <p class="text-slate-500 text-sm">&copy; {{ date('Y') }} Ucok University. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <script>
+        const html = document.documentElement;
+        
+        function toggleTheme() {
+            if (html.classList.contains('dark')) {
+                // Pindah ke Light
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Pindah ke Dark
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+    </script>
 </body>
 </html>
