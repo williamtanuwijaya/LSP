@@ -25,6 +25,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'camaba', // Default role Calon Mahasiswa
+            'is_active' => false,
         ]);
 
         // Langsung Login setelah daftar
@@ -45,16 +46,24 @@ class AuthController extends Controller
 
         // Coba Login
         if (Auth::attempt($credentials, $request->remember)) {
+
+            // --- HAPUS ATAU KOMENTAR BAGIAN INI ---
+            /*
+        if (Auth::user()->is_active == false) {
+            Auth::logout();
+            return back()->withErrors(['email' => 'Akun belum aktif...']);
+        }
+        */
+            // --------------------------------------
+
             $request->session()->regenerate();
 
-            // Cek jika admin, arahkan ke admin panel
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.index');
             }
 
             return redirect()->route('dashboard');
         }
-
         // Jika Gagal
         return back()->withErrors([
             'email' => 'Email atau password yang Anda masukkan salah.',

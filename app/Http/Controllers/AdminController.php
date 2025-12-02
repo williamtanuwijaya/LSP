@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
 use App\Models\CalonMahasiswa;
 use App\Models\Pembayaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,10 +12,18 @@ class AdminController extends Controller
     // 1. Menampilkan Dashboard Admin
     public function index()
     {
-        // Ambil data calon mahasiswa beserta user & pembayaran (Eager Loading)
-        $pendaftar = CalonMahasiswa::with(['user', 'pembayaran'])->latest()->get();
+        // 1. Ambil data User Baru yang Belum Aktif
+        $usersBaru = User::where('role', 'camaba')
+            ->where('is_active', false)
+            ->latest()
+            ->get();
 
-        return view('admin.index', compact('pendaftar'));
+        // 2. Ambil data Pendaftar Lengkap
+        $pendaftar = CalonMahasiswa::with(['user', 'pembayaran'])
+            ->latest()
+            ->get();
+
+        return view('admin.index', compact('pendaftar', 'usersBaru'));
     }
 
     // 2. Verifikasi Data Diri (Biodata)
@@ -54,5 +61,16 @@ class AdminController extends Controller
         ]);
 
         return back()->with('error', 'Pembayaran ditolak.');
+    }
+
+    public function aktivasiUser($id)
+    {
+        $user = User::where('role', 'camaba')->findOrFail($id);
+
+        $user->update([
+            'is_active' => true,
+        ]);
+
+        return back()->with('success', 'Akun calon mahasiswa berhasil diaktifkan.');
     }
 }

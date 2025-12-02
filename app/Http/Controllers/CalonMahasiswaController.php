@@ -11,6 +11,9 @@ class CalonMahasiswaController extends Controller
     // 1. Menampilkan Formulir (INI YANG TADI HILANG)
     public function create()
     {
+        if (!Auth::user()->is_active) {
+            return redirect()->route('dashboard')->with('error', 'Akun Anda belum diaktifkan oleh Admin!');
+        }
         // Cek apakah user sudah pernah isi biodata?
         $existing = CalonMahasiswa::where('user_id', Auth::id())->first();
 

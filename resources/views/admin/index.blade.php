@@ -45,6 +45,62 @@
         </div>
     @endif
 
+    {{-- ======================== --}}
+    {{--  TABEL AKTIVASI AKUN    --}}
+    {{-- ======================== --}}
+    @if(isset($usersBaru) && $usersBaru->count() > 0)
+        <div class="bg-white dark:bg-slate-800 shadow-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 mb-8">
+            <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+                <h2 class="text-lg font-bold text-slate-800 dark:text-white">
+                    Aktivasi Akun Baru
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Daftar akun calon mahasiswa yang baru mendaftar dan menunggu aktivasi admin.
+                </p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
+                    <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
+                        <tr>
+                            <th class="px-6 py-3">Nama</th>
+                            <th class="px-6 py-3">Email</th>
+                            <th class="px-6 py-3">Tanggal Daftar</th>
+                            <th class="px-6 py-3 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($usersBaru as $user)
+                            <tr class="bg-white border-b dark:bg-slate-800 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                                <td class="px-6 py-3 font-medium text-slate-900 dark:text-white">
+                                    {{ $user->name }}
+                                </td>
+                                <td class="px-6 py-3">
+                                    {{ $user->email }}
+                                </td>
+                                <td class="px-6 py-3 text-xs">
+                                    {{ $user->created_at?->format('d M Y H:i') }}
+                                </td>
+                                <td class="px-6 py-3 text-center">
+                                    <form action="{{ route('admin.user.aktivasi', $user->id) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Aktifkan akun ini?')">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit"
+                                                class="px-3 py-1 rounded text-xs font-bold bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition">
+                                            ✓ Aktifkan
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+
     <!-- Tabel Pendaftar -->
     <div class="bg-white dark:bg-slate-800 shadow-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
         <div class="overflow-x-auto">
