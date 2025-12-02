@@ -49,4 +49,11 @@ class PembayaranController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Bukti pembayaran berhasil dikirim. Tunggu verifikasi admin.');
     }
+
+    public function show($id)
+    {
+        $pembayaran = Pembayaran::with(['pendaftar.user'])->findOrFail($id);
+
+        return view('admin.pembayaran.show', compact('pembayaran'));
+    }
 }
