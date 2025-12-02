@@ -12,19 +12,20 @@ class AdminController extends Controller
     // 1. Menampilkan Dashboard Admin
     public function index()
     {
-        // 1. Ambil data User Baru yang Belum Aktif
+        // Akun camaba yang BELUM aktif (pending atau rejected)
         $usersBaru = User::where('role', 'camaba')
             ->where('is_active', false)
+            ->whereIn('status_akun', ['pending', 'rejected'])
             ->latest()
             ->get();
 
-        // 2. Ambil data Pendaftar Lengkap
         $pendaftar = CalonMahasiswa::with(['user', 'pembayaran'])
             ->latest()
             ->get();
 
         return view('admin.index', compact('pendaftar', 'usersBaru'));
     }
+
 
     // 2. Verifikasi Data Diri (Biodata)
     public function verifikasiData($id)
@@ -37,7 +38,16 @@ class AdminController extends Controller
         return back()->with('success', 'Data mahasiswa berhasil diverifikasi.');
     }
 
+    public function tolakData($id)
+    {
+        $calonMahasiswa = \App\Models\CalonMahasiswa::findOrFail($id);
 
+        $calonMahasiswa->update([
+            'status_pendaftaran' => 'DITOLAK' // Ubah status jadi rejected
+        ]);
+
+        return back()->with('error', 'Biodata ditolak. Mahasiswa harus perbaiki data.');
+    }
 
     // 3. Verifikasi Pembayaran (Terima)
     public function verifikasiPembayaran($id)
@@ -68,11 +78,26 @@ class AdminController extends Controller
         $user = User::where('role', 'camaba')->findOrFail($id);
 
         $user->update([
-            'is_active' => true,
+            'is_active'   => true,
+            'status_akun' => 'active',
         ]);
 
         return back()->with('success', 'Akun calon mahasiswa berhasil diaktifkan.');
     }
+
+    public function tolakUser($id)
+    {
+        $user = User::where('role', 'camaba')->findOrFail($id);
+
+        $user->update([
+            'is_active'   => false,        // tetap non-aktif
+            'status_akun' => 'rejected',   // ditandai ditolak
+        ]);
+
+        return back()->with('error', 'Akun calon mahasiswa ditolak. Mahasiswa dapat memperbaiki / daftar ulang.');
+    }
+
+
 
     public function showPendaftar($id)
     {

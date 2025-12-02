@@ -81,7 +81,7 @@
 
     <section class="relative h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden">
         <div class="video-docker absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <video class="min-w-full min-h-full absolute object-cover" src="{{ asset('assets/videos/kampus.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
+            <video class="min-w-full min-h-full absolute object-cover" src="{{ asset('assets/videos/kampus2.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
         </div>
 
         <div class="relative z-10 px-4 max-w-4xl mx-auto mt-16">

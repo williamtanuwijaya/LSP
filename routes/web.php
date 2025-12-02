@@ -63,24 +63,56 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // 5. Route Khusus Admin
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+// 5. Route Khusus Admin
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::patch('/user/aktivasi/{id}', [AdminController::class, 'aktivasiUser'])
+            ->name('user.aktivasi');
 
-    // Verifikasi
-    Route::patch('/verif-data/{id}', [AdminController::class, 'verifikasiData'])->name('verif.data');
-    Route::patch('/verif-bayar/{id}', [AdminController::class, 'verifikasiPembayaran'])->name('verif.bayar');
-    Route::patch('/tolak-bayar/{id}', [AdminController::class, 'tolakPembayaran'])->name('tolak.bayar');
+        Route::patch('/user/tolak/{id}', [AdminController::class, 'tolakUser'])
+            ->name('user.tolak');
 
-    // Pengumuman
-    Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman.index');
-    Route::post('/pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
-    Route::patch('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
-    Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
-    Route::get('/pembayaran/{id}', [PembayaranController::class, 'show'])->name('pembayaran.show');
-    Route::get('/pendaftar/{id}', [AdminController::class, 'showPendaftar'])
-        ->name('admin.pendaftar.show');
-});
+        // Dashboard admin
+        Route::get('/', [AdminController::class, 'index'])->name('index');
 
-Route::patch('/admin/pendaftar/{id}/verif-data', [AdminController::class, 'verifikasiData'])
-    ->name('admin.verif.data');
+        // Aktivasi akun user camaba
+        Route::patch('/user/aktivasi/{id}', [AdminController::class, 'aktivasiUser'])
+            ->name('user.aktivasi');
+
+        // Verifikasi / tolak biodata pendaftar
+        Route::patch('/pendaftar/{id}/verif-data', [AdminController::class, 'verifikasiData'])
+            ->name('verif.data');
+
+        Route::patch('/pendaftar/{id}/tolak', [AdminController::class, 'tolakData'])
+            ->name('tolak.data');
+
+        // Verifikasi / tolak pembayaran
+        Route::patch('/pembayaran/{id}/verif', [AdminController::class, 'verifikasiPembayaran'])
+            ->name('verif.bayar');
+
+        Route::patch('/pembayaran/{id}/tolak', [AdminController::class, 'tolakPembayaran'])
+            ->name('tolak.bayar');
+
+        // Pengumuman
+        Route::get('/pengumuman', [PengumumanController::class, 'index'])
+            ->name('pengumuman.index');
+
+        Route::post('/pengumuman', [PengumumanController::class, 'store'])
+            ->name('pengumuman.store');
+
+        Route::patch('/pengumuman/{id}', [PengumumanController::class, 'update'])
+            ->name('pengumuman.update');
+
+        Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])
+            ->name('pengumuman.destroy');
+
+        // Detail pembayaran & pendaftar
+        Route::get('/pembayaran/{id}', [PembayaranController::class, 'show'])
+            ->name('pembayaran.show');
+
+        Route::get('/pendaftar/{id}', [AdminController::class, 'showPendaftar'])
+            ->name('pendaftar.show'); // hasil akhirnya: "admin.pendaftar.show"
+    });

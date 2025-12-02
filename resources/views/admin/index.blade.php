@@ -82,17 +82,60 @@
                                     {{ $user->created_at?->format('d M Y H:i') }}
                                 </td>
                                 <td class="px-6 py-3 text-center">
-                                    <form action="{{ route('admin.user.aktivasi', $user->id) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Aktifkan akun ini?')">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit"
-                                                class="px-3 py-1 rounded text-xs font-bold bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition">
-                                            ✓ Aktifkan
-                                        </button>
-                                    </form>
-                                </td>
+    @php
+        $status = $user->status_akun ?? 'pending';
+
+        $badgeClass = match ($status) {
+            'active'   => 'bg-green-100 text-green-700 border border-green-200',
+            'rejected' => 'bg-red-100 text-red-700 border border-red-200',
+            default    => 'bg-yellow-100 text-yellow-700 border border-yellow-200', // pending
+        };
+
+        $label = match ($status) {
+            'active'   => 'AKTIF',
+            'rejected' => 'DITOLAK',
+            default    => 'PENDING',
+        };
+    @endphp
+
+    <div class="flex flex-col items-center gap-2">
+        {{-- Badge Status Akun --}}
+        <span class="px-3 py-1 text-xs font-bold rounded-full {{ $badgeClass }}">
+            {{ $label }}
+        </span>
+
+        {{-- Tombol Aksi --}}
+        <div class="flex gap-2 justify-center">
+
+            {{-- Tombol Aktifkan: SELALU ADA selama user masih di tabel ini (is_active = 0) --}}
+            <form action="{{ route('admin.user.aktivasi', $user->id) }}"
+                  method="POST"
+                  onsubmit="return confirm('Aktifkan akun ini?')">
+                @csrf
+                @method('PATCH')
+                <button type="submit"
+                        class="px-3 py-1 rounded text-xs font-bold bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition">
+                    ✓ Aktifkan
+                </button>
+            </form>
+
+            {{-- Tombol Tolak: hanya muncul jika status masih pending --}}
+            @if($status !== 'rejected')
+                <form action="{{ route('admin.user.tolak', $user->id) }}"
+                      method="POST"
+                      onsubmit="return confirm('Tolak akun ini? Mahasiswa akan dianggap ditolak.')">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit"
+                            class="px-3 py-1 rounded text-xs font-bold bg-red-50 border border-red-200 text-red-700 hover:bg-red-100 transition">
+                        ✕ Tolak
+                    </button>
+                </form>
+            @endif
+        </div>
+    </div>
+</td>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -127,14 +170,27 @@
                                 {{ $data->prodi_pilihan }}
                             </td>
 
-                            <td class="px-6 py-4">
-                                <span class="px-2 py-1 rounded-full text-xs font-bold
-                                    {{ $data->status_pendaftaran == 'verified'
-                                        ? 'bg-green-100 text-green-700'
-                                        : 'bg-yellow-100 text-yellow-700' }}">
-                                    {{ ucfirst($data->status_pendaftaran) }}
-                                </span>
-                            </td>
+<td class="px-6 py-4">
+    @php
+        $status = $data->status_pendaftaran;
+        $badgeClass = match ($status) {
+            'verified' => 'bg-green-100 text-green-700',
+            'rejected' => 'bg-red-100 text-red-700',
+            default    => 'bg-yellow-100 text-yellow-700', // pending / lainnya
+        };
+
+        $label = match ($status) {
+            'verified' => 'Terverifikasi',
+            'rejected' => 'Ditolak',
+            default    => 'Pending',
+        };
+    @endphp
+
+    <span class="px-2 py-1 rounded-full text-xs font-bold {{ $badgeClass }}">
+        {{ $label }}
+    </span>
+</td>
+
 
                             <td class="px-6 py-4">
                                 @if($data->pembayaran)
@@ -163,25 +219,43 @@
                                             Detail Pembayaran
                                         </a>
                                     @else
-                                        <a href="{{ route('admin.pendaftar.show', $data->id) }}"
+                                        {{-- <a href="{{ route('admin.pendaftar.show', $data->id) }}"
                                            class="w-full text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 px-3 py-1 rounded text-xs font-bold">
                                             Detail Pendaftar
-                                        </a>
+                                        </a> --}}
                                     @endif
 
                                     <!-- Verifikasi Data Diri -->
-                                    @if($data->status_pendaftaran == 'pending')
-                                        <form action="{{ route('admin.verif.data', $data->id) }}"
-                                              method="POST"
-                                              onsubmit="return confirm('Yakin data ini valid?')">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit"
-                                                    class="w-full text-blue-600 hover:text-blue-800 font-bold text-xs bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1 rounded transition">
-                                                Verif Data
-                                            </button>
-                                        </form>
-                                    @endif
+                                   @if(in_array($data->status_pendaftaran, ['pending', 'rejected']))
+    <div class="flex flex-col gap-2 w-full">
+
+        {{-- Tombol Verifikasi Data --}}
+        <form action="{{ route('admin.verif.data', $data->id) }}"
+              method="POST"
+              onsubmit="return confirm('Yakin ingin ACC biodata ini?')">
+            @csrf
+            @method('PATCH')
+            <button type="submit"
+                    class="w-full text-blue-600 hover:text-blue-800 font-bold text-xs bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1 rounded transition">
+                ✓ Verif Data
+            </button>
+        </form>
+
+        {{-- Tombol Tolak Data --}}
+        <form action="{{ route('admin.tolak.data', $data->id) }}"
+              method="POST"
+              onsubmit="return confirm('Tolak biodata ini? Mahasiswa akan diminta memperbaiki data.')">
+            @csrf
+            @method('PATCH')
+            <button type="submit"
+                    class="w-full text-red-600 hover:text-red-800 font-bold text-xs bg-red-50 hover:bg-red-100 border border-red-200 px-3 py-1 rounded transition">
+                ✕ Tolak Data
+            </button>
+        </form>
+
+    </div>
+@endif
+
 
                                     <!-- Verifikasi Pembayaran -->
                                     @if($data->pembayaran && $data->pembayaran->status_bayar == 'pending')
