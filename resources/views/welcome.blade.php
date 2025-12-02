@@ -168,6 +168,109 @@
         </div>
     </section>
 
+        <!-- SECTION PENGUMUMAN -->
+    @if($pengumuman->count() > 0)
+        @php
+            $highlight = $pengumuman->first();
+            $others = $pengumuman->skip(1);
+        @endphp
+
+        <section id="pengumuman" class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300">
+            <div class="max-w-screen-xl mx-auto px-4 space-y-10">
+                <div class="text-center">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold tracking-wide uppercase">
+                        📢 Pengumuman Resmi PMB
+                    </span>
+                    <h2 class="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
+                        Pengumuman Terbaru
+                    </h2>
+                    <p class="mt-3 text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+                        Pantau selalu informasi terkini terkait jadwal pendaftaran, ujian seleksi, dan kelulusan calon mahasiswa baru.
+                    </p>
+                </div>
+
+                <div class="grid gap-8 lg:grid-cols-3">
+                    {{-- Highlight pengumuman terbaru --}}
+                    <article class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl p-6 md:p-8 relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
+
+                        <div class="relative z-10 space-y-4">
+                            <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                                    PENGUMUMAN UTAMA
+                                </span>
+                                <span class="h-1 w-1 rounded-full bg-slate-400"></span>
+                                <span>{{ $highlight->created_at->translatedFormat('d M Y') }}</span>
+                                <span class="text-[11px] text-slate-400">
+                                    ({{ $highlight->created_at->diffForHumans() }})
+                                </span>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white leading-snug">
+                                {{ $highlight->judul }}
+                            </h3>
+
+                            <p class="text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                                {{ $highlight->isi }}
+                            </p>
+
+                            <div class="pt-4 border-t border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-sm">
+                                        ℹ️
+                                    </span>
+                                    <span>Pastikan Anda membaca pengumuman ini dengan saksama.</span>
+                                </div>
+                                {{-- Jika nanti punya halaman detail, bisa pakai route detail di sini --}}
+                                {{-- <a href="#" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                                    Baca selengkapnya →
+                                </a> --}}
+                            </div>
+                        </div>
+                    </article>
+
+                    {{-- Daftar pengumuman lain --}}
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-wide uppercase">
+                            Pengumuman Lainnya
+                        </h4>
+
+                        @forelse($others as $info)
+                            <article class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm hover:shadow-md transition duration-200 group">
+                                <div class="flex items-start gap-3">
+                                    <div class="mt-1">
+                                        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold group-hover:scale-105 transition">
+                                            {{ $loop->iteration + 1 }}
+                                        </span>
+                                    </div>
+                                    <div class="flex-1 space-y-1.5">
+                                        <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                            <span>{{ $info->created_at->translatedFormat('d M Y') }}</span>
+                                            <span class="h-1 w-1 rounded-full bg-slate-400"></span>
+                                            <span>{{ $info->created_at->diffForHumans() }}</span>
+                                        </div>
+                                        <h5 class="text-sm font-semibold text-slate-900 dark:text-white line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                                            {{ $info->judul }}
+                                        </h5>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                                            {{ $info->isi }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        @empty
+                            <p class="text-sm text-slate-500 dark:text-slate-400">
+                                Belum ada pengumuman tambahan.
+                            </p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+
+
     <footer class="bg-slate-900 dark:bg-slate-950 text-white pt-16 pb-8 border-t-4 border-blue-600 transition-colors duration-300">
         <div class="max-w-screen-xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">

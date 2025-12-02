@@ -31,13 +31,13 @@ class AdminController extends Controller
     {
         $calonMahasiswa = CalonMahasiswa::findOrFail($id);
 
-        // Ubah status jadi 'verified'
-        $calonMahasiswa->update([
-            'status_pendaftaran' => 'verified'
-        ]);
+        $calonMahasiswa->status_pendaftaran = 'verified';
+        $calonMahasiswa->save();
 
         return back()->with('success', 'Data mahasiswa berhasil diverifikasi.');
     }
+
+
 
     // 3. Verifikasi Pembayaran (Terima)
     public function verifikasiPembayaran($id)
@@ -72,5 +72,12 @@ class AdminController extends Controller
         ]);
 
         return back()->with('success', 'Akun calon mahasiswa berhasil diaktifkan.');
+    }
+
+    public function showPendaftar($id)
+    {
+        $pendaftar = CalonMahasiswa::with(['user', 'pembayaran'])->findOrFail($id);
+
+        return view('admin.pendaftar-show', compact('pendaftar'));
     }
 }

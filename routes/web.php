@@ -78,8 +78,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
     Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
     Route::get('/pembayaran/{id}', [PembayaranController::class, 'show'])->name('pembayaran.show');
+    Route::get('/pendaftar/{id}', [AdminController::class, 'showPendaftar'])
+        ->name('admin.pendaftar.show');
 });
 
-Route::patch('/admin/user/{id}/aktivasi', [AdminController::class, 'aktivasiUser'])
-    ->name('admin.user.aktivasi')
-    ->middleware('auth');
+Route::patch('/admin/pendaftar/{id}/verif-data', [AdminController::class, 'verifikasiData'])
+    ->name('admin.verif.data');

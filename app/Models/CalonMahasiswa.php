@@ -10,6 +10,16 @@ class CalonMahasiswa extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'nisn',
+        'asal_sekolah',
+        'nomor_hp',
+        'alamat',
+        'prodi_pilihan',
+        'status_pendaftaran',
+    ];
+
 
     // Relasi ke User (Untuk ambil Nama/Email)
     public function user()
