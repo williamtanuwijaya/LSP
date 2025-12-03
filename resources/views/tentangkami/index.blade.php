@@ -318,7 +318,7 @@
                             Kaprodi S1 Informatika
                         </p>
                         <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">
-                            Nama Kaprodi Informatika
+                            Dr. M. Zaky Naufal Farisky, S.Kom., M.Si., M.Pd.
                         </p>
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                             Fokus pada pengembangan kurikulum, riset, dan kerja sama di bidang Informatika.
@@ -330,7 +330,7 @@
                             Kaprodi S1 Sistem Informasi
                         </p>
                         <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">
-                            Nama Kaprodi Sistem Informasi
+                            Dr.Eng Ir. M. Dzaky Raihan, M.T.
                         </p>
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                             Mengelola program studi yang mengintegrasikan teknologi informasi dengan proses bisnis.
@@ -342,7 +342,7 @@
                             Kaprodi D3 Manajemen Informatika
                         </p>
                         <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">
-                            Nama Kaprodi Manajemen Informatika
+                            Michael Wijaya, S.Kom., M.T., Ph.D.
                         </p>
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                             Berfokus pada kompetensi vokasi di bidang pengelolaan sistem informasi.
@@ -354,7 +354,7 @@
                             Kaprodi S1 Manajemen
                         </p>
                         <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">
-                            Nama Kaprodi Manajemen
+                            Dr. Cindy Valentina, S.E., M.M.
                         </p>
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                             Mengembangkan kualitas pembelajaran di bidang manajemen dan kewirausahaan.
@@ -366,7 +366,7 @@
                             Kaprodi S1 Akuntansi
                         </p>
                         <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">
-                            Nama Kaprodi Akuntansi
+                            Dr. Trifena Agustina, S.E., M.Ak., M.Pd.
                         </p>
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                             Mengelola pengembangan akademik di bidang akuntansi dan keuangan.
