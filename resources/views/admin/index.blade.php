@@ -260,7 +260,7 @@
                                 @if($data->pembayaran)
                                     <a href="{{ route('admin.pembayaran.show', $data->pembayaran->id) }}"
                                     target="_blank"
-                                    class="inline-flex items-center justify-center text-indigo-700 bg-indigo-50 border border-indigo-200 
+                                    class="inline-flex items-center justify-center text-green-700 bg-indigo-50 border border-indigo-200 
                                             hover:bg-indigo-100 px-3 py-1.5 rounded-md text-xs font-semibold shadow-sm transition">
                                         Detail Bayar
                                     </a>
@@ -291,51 +291,6 @@
                                                 </button>
                                             </form>
                                         </div>
-                                    @endif
-
-                                    {{-- Verifikasi Pembayaran --}}
-                                    @if($data->pembayaran && $data->pembayaran->status_bayar == 'pending')
-                                        <div class="flex flex-col gap-2 w-full min-w-[140px]">
-                                            <a href="{{ asset('storage/' . $data->pembayaran->bukti_bayar) }}"
-                                               target="_blank"
-                                               class="text-xs text-slate-500 hover:text-blue-600 underline flex items-center justify-center">
-                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                                Lihat Bukti
-                                            </a>
-
-                                            <div class="flex gap-1 justify-center">
-                                                <form action="{{ route('admin.verif.bayar', $data->pembayaran->id) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('Konfirmasi pembayaran lunas?')">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"
-                                                            class="text-green-600 bg-green-50 border border-green-200 hover:bg-green-100 px-2 py-1 rounded text-xs font-bold transition">
-                                                        ✓ Terima
-                                                    </button>
-                                                </form>
-
-                                                <form action="{{ route('admin.tolak.bayar', $data->pembayaran->id) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('Tolak pembayaran ini?')">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"
-                                                            class="text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 px-2 py-1 rounded text-xs font-bold transition">
-                                                        ✕ Tolak
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @elseif($data->pembayaran && $data->pembayaran->status_bayar == 'lunas')
-                                        <span class="text-green-600 text-xs font-bold bg-green-50 px-2 py-1 rounded border border-green-100">
-                                            Payment OK
-                                        </span>
                                     @endif
                                 </div>
                             </td>
