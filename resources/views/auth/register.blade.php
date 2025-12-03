@@ -34,6 +34,23 @@
     </script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-200 antialiased transition-colors duration-300">
+    <!-- Tombol Back -->
+<div class="absolute top-5 left-5 z-50">
+    <a href="{{ url()->previous() }}" 
+       class="p-2 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 
+              hover:bg-slate-100 dark:hover:bg-slate-700 shadow-sm border border-slate-200 
+              dark:border-slate-700 transition flex items-center gap-2">
+
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+             stroke-width="2" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" 
+                  d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+
+        <span class="text-sm font-medium">Kembali</span>
+    </a>
+</div>
+
 
     <div class="absolute top-5 right-5 z-50">
         <button onclick="toggleTheme()" class="p-2 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 shadow-sm border border-slate-200 dark:border-slate-700 transition">
