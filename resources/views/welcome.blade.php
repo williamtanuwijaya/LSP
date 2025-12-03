@@ -126,7 +126,7 @@
                 Penerimaan Mahasiswa Baru 2025/2026
             </span>
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight drop-shadow-md">
-                Wujudkan Masa Depan di <br>
+                Wujudkan Masa Depan <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">Ucok University</span>
             </h1>
             <p class="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
