@@ -233,7 +233,7 @@
                         <div class="flex items-start justify-between gap-3">
                             <div>
                                 <h4 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                                    S1 Informatika
+                                    S1 Teknik Informatika
                                 </h4>
                                 <p class="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                                     Jenjang Sarjana • Akreditasi A
@@ -309,14 +309,14 @@
                         <div class="flex items-start justify-between gap-3">
                             <div>
                                 <h4 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                                    D3 Manajemen Informatika
+                                    S1 Teknologi Informasi
                                 </h4>
                                 <p class="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-                                    Diploma Tiga • Akreditasi Baik
+                                    Jenjang Sarjana • Akreditasi Baik
                                 </p>
                             </div>
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-[11px] font-semibold">
-                                Vokasi
+                                Developer
                             </span>
                         </div>
                         <p class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -362,7 +362,7 @@
                         <div class="flex items-start justify-between gap-3">
                             <div>
                                 <h4 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                                    S1 Manajemen
+                                    S1 Bisnis Digital
                                 </h4>
                                 <p class="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                                     Jenjang Sarjana • Akreditasi Baik Sekali

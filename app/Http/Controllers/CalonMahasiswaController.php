@@ -34,6 +34,7 @@ class CalonMahasiswaController extends Controller
             'nomor_hp' => 'required',
             'alamat' => 'required',
             'prodi_pilihan' => 'required',
+            'jenis_kelamin' => 'required|in:laki-laki,perempuan',
         ]);
 
         CalonMahasiswa::create([
@@ -43,6 +44,7 @@ class CalonMahasiswaController extends Controller
             'nomor_hp' => $request->nomor_hp,
             'alamat' => $request->alamat,
             'prodi_pilihan' => $request->prodi_pilihan,
+            'jenis_kelamin'     => $request->jenis_kelamin,
             'status_pendaftaran' => 'pending'
         ]);
 

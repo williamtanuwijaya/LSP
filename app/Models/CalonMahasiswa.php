@@ -17,6 +17,7 @@ class CalonMahasiswa extends Model
         'nomor_hp',
         'alamat',
         'prodi_pilihan',
+        'jenis_kelamin',
         'status_pendaftaran',
     ];
 

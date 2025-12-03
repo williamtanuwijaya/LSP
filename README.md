@@ -20,10 +20,6 @@ Setelah itu lakukan konfigurasi
 composer install
 ```
 
-dan
-```
-npm install
-```
 Silahkan copy file .env.example dan buat file .env dan sesuaikan dengan databasenya.
 
 Setelah itu silahkan untuk melakukan migrasi
@@ -36,14 +32,14 @@ Setelah migrate silahkan untuk masukkan seeder akun Admin
 php artisan db:seed --class=AdminSeeder
 ```
 
-Setelah dijalankan buka 2 terminal satu nya menjalankan
-```
-npm run dev
-```
-
-Satu nya lagi menjalankan
+Setelah dijalankan buka terminal jalankan
 ```
 php artisan serve
+```
+
+Silahkan untuk membuka tautan berikut setelah running
+```
+http://127.0.0.1:8000/
 ```
 
 ## Authors
