@@ -98,7 +98,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="{{ route('register') }}" class="px-8 py-4 text-lg font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition transform hover:-translate-y-1 hover:shadow-2xl shadow-blue-600/40">Daftar Sekarang</a>
-                <a href="#prodi" class="px-8 py-4 text-lg font-bold text-white border border-white/30 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white hover:text-slate-900 transition transform hover:-translate-y-1">Lihat Program Studi</a>
+                <a href="/prodi" class="px-8 py-4 text-lg font-bold text-white border border-white/30 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white hover:text-slate-900 transition transform hover:-translate-y-1">Lihat Program Studi</a>
             </div>
         </div>
         <div class="absolute bottom-10 z-10 animate-bounce">
@@ -280,10 +280,10 @@
                     <p class="text-slate-400 text-sm max-w-sm mt-2">Kampus modern berbasis teknologi untuk mencetak Generasi Emas Masa Depan Indonesia.</p>
                 </div>
                 <div class="flex space-x-8 text-sm font-medium text-slate-300">
-                    <a href="#" class="hover:text-blue-400 hover:underline transition">Tentang Kami</a>
-                    <a href="#" class="hover:text-blue-400 hover:underline transition">Program Studi</a>
-                    <a href="#" class="hover:text-blue-400 hover:underline transition">Bantuan</a>
-                    <a href="#" class="hover:text-blue-400 hover:underline transition">Kontak</a>
+                    <a href="/tentangkami" class="hover:text-blue-400 hover:underline transition">Tentang Kami</a>
+                    <a href="/prodi" class="hover:text-blue-400 hover:underline transition">Program Studi</a>
+                    <a href="/bantuan" class="hover:text-blue-400 hover:underline transition">Bantuan</a>
+                    <a href="/bantuan#kontak" class="hover:text-blue-400 hover:underline transition">Kontak</a>
                 </div>
             </div>
             <div class="border-t border-slate-800 pt-8 mt-8 text-center">

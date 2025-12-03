@@ -22,6 +22,18 @@ Route::get('/', function () {
     return view('welcome', compact('pengumuman'));
 });
 
+Route::get('/prodi', function () {
+    return view('prodi.index    ');
+})->name('prodi');
+
+Route::get('/bantuan', function () {
+    return view('bantuan.index');
+})->name('bantuan');
+
+Route::get('/tentangkami', function () {
+    return view('tentangkami.index');
+})->name('tentangkami');
+
 // 2. Authentication Routes (Tamu)
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
