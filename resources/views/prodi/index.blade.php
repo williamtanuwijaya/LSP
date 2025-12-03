@@ -452,8 +452,8 @@
                 <div class="flex space-x-8 text-sm font-medium text-slate-300">
                     <a href="{{ url('/') }}" class="hover:text-blue-400 hover:underline transition">Beranda</a>
                     <a href="/prodi" class="hover:text-blue-400 hover:underline transition">Program Studi</a>
-                    <a href="#" class="hover:text-blue-400 hover:underline transition">Bantuan</a>
-                    <a href="#" class="hover:text-blue-400 hover:underline transition">Kontak</a>
+                    <a href="/bantuan" class="hover:text-blue-400 hover:underline transition">Bantuan</a>
+                    <a href="/bantuan#kontak" class="hover:text-blue-400 hover:underline transition">Kontak</a>
                 </div>
             </div>
             <div class="border-t border-slate-800 pt-8 mt-8 text-center">

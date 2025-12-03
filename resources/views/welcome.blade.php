@@ -22,6 +22,42 @@
     </script>
 
     <style>
+        /* ===== ANIMASI PAGE LOAD ===== */
+        @keyframes pageFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .page-enter {
+            animation: pageFade 0.6s ease-out both;
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.7s ease-out both;
+        }
+
+        .animate-fade-up-delay-1 {
+            animation: fadeUp 0.8s ease-out 0.15s both;
+        }
+
+        .animate-fade-up-delay-2 {
+            animation: fadeUp 0.9s ease-out 0.3s both;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.5s ease-out both;
+        }
+
         .video-docker video {
             top: 50%;
             left: 50%;
@@ -54,9 +90,9 @@
         }
     </script>
 </head>
-<body class="antialiased font-sans text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+<body class="antialiased font-sans text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 page-enter">
 
-    <nav class="fixed w-full z-50 top-0 start-0 transition-all duration-300 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <nav class="fixed w-full z-50 top-0 start-0 transition-all duration-300 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm animate-fade-up">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center rtl:space-x-reverse">
                 <span class="self-center text-2xl font-extrabold whitespace-nowrap text-slate-900 dark:text-white tracking-tight transition-colors">Ucok University</span>
@@ -73,7 +109,7 @@
                 </div>
 
                 <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <svg class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 0 8 0z"></path></svg>
                     <svg class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
             </div>
@@ -82,10 +118,10 @@
 
     <section class="relative h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden">
         <div class="video-docker absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <video class="min-w-full min-h-full absolute object-cover" src="{{ asset('assets/videos/kampus2.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
+            <video class="min-w-full min-h-full absolute object-cover" src="{{ asset('assets/videos/kampus3.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
         </div>
 
-        <div class="relative z-10 px-4 max-w-4xl mx-auto mt-16">
+        <div class="relative z-10 px-4 max-w-4xl mx-auto mt-16 animate-fade-up-delay-1">
             <span class="inline-block py-1 px-3 rounded-full bg-blue-600/90 text-white text-sm font-semibold mb-6 tracking-wide shadow-lg backdrop-blur-sm border border-blue-400">
                 Penerimaan Mahasiswa Baru 2025/2026
             </span>
@@ -106,7 +142,7 @@
         </div>
     </section>
 
-    <section class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 relative z-20 -mt-8 mx-4 rounded-xl shadow-xl max-w-6xl lg:mx-auto p-8 transition-colors duration-300">
+    <section class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 relative z-20 -mt-8 mx-4 rounded-xl shadow-xl max-w-6xl lg:mx-auto p-8 transition-colors duration-300 animate-fade-up-delay-2">
         <dl class="grid gap-8 text-center sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-700">
             <div class="flex flex-col items-center justify-center p-2">
                 <dt class="mb-2 text-4xl font-extrabold text-blue-600 dark:text-blue-400">A</dt>
@@ -123,7 +159,7 @@
         </dl>
     </section>
 
-    <section class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300">
+    <section class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300 animate-fade-up-delay-2">
         <div class="max-w-screen-xl px-4 mx-auto">
             <div class="text-center mb-16">
                 <span class="text-blue-600 dark:text-blue-400 font-bold tracking-wide uppercase text-sm">Galeri Kampus</span>
@@ -132,7 +168,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-auto md:h-[500px]">
-                <div class="group relative overflow-hidden rounded-2xl col-span-1 md:col-span-2 lg:col-span-2 row-span-2 h-64 md:h-full shadow-lg border border-slate-200 dark:border-slate-800">
+                <div class="group relative overflow-hidden rounded-2xl col-span-1 md:col-span-2 lg:col-span-2 row-span-2 h-64 md:h-full shadow-lg border border-slate-200 dark:border-slate-800 animate-scale-in">
                     <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000&auto=format&fit=crop" alt="Gedung Utama" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent flex items-end p-6">
                         <div>
@@ -141,25 +177,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800 animate-scale-in" style="animation-delay:.05s;">
                     <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=800&auto=format&fit=crop" alt="Perpustakaan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
                         <span class="text-white font-semibold">Perpustakaan Digital</span>
                     </div>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800 animate-scale-in" style="animation-delay:.1s;">
                     <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Mahasiswa" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
                         <span class="text-white font-semibold">Diskusi Kelompok</span>
                     </div>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800 animate-scale-in" style="animation-delay:.15s;">
                     <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Auditorium" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
                         <span class="text-white font-semibold">Co-Working Space</span>
                     </div>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800">
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg h-64 md:h-auto border border-slate-200 dark:border-slate-800 animate-scale-in" style="animation-delay:.2s;">
                     <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" alt="Laboratorium" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
                         <span class="text-white font-semibold">Lab Komputer</span>
@@ -176,7 +212,7 @@
             $others = $pengumuman->skip(1);
         @endphp
 
-        <section id="pengumuman" class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300">
+        <section id="pengumuman" class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300 animate-fade-up">
             <div class="max-w-screen-xl mx-auto px-4 space-y-10">
                 <div class="text-center">
                     <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold tracking-wide uppercase">
@@ -192,7 +228,7 @@
 
                 <div class="grid gap-8 lg:grid-cols-3">
                     {{-- Highlight pengumuman terbaru --}}
-                    <article class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl p-6 md:p-8 relative overflow-hidden">
+                    <article class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl p-6 md:p-8 relative overflow-hidden animate-scale-in">
                         <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
 
                         <div class="relative z-10 space-y-4">
@@ -222,10 +258,6 @@
                                     </span>
                                     <span>Pastikan Anda membaca pengumuman ini dengan saksama.</span>
                                 </div>
-                                {{-- Jika nanti punya halaman detail, bisa pakai route detail di sini --}}
-                                {{-- <a href="#" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-                                    Baca selengkapnya →
-                                </a> --}}
                             </div>
                         </div>
                     </article>
@@ -237,7 +269,7 @@
                         </h4>
 
                         @forelse($others as $info)
-                            <article class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm hover:shadow-md transition duration-200 group">
+                            <article class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm hover:shadow-md transition duration-200 group animate-scale-in">
                                 <div class="flex items-start gap-3">
                                     <div class="mt-1">
                                         <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold group-hover:scale-105 transition">
