@@ -235,7 +235,7 @@
                                 Ketua Yayasan
                             </p>
                             <p class="mt-1 text-lg font-bold text-slate-900 dark:text-white">
-                                Prof. Dr. William Tanuwijaya, M.Sc., M.Si., M.Pd.
+                                Prof. Dr. William Tanuwijaya, M.Sc., M.Si., M.Pd., M.Kom., M.M.
                             </p>
                             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
                                 Penanggung jawab utama arah kebijakan yayasan dan pengembangan universitas.
