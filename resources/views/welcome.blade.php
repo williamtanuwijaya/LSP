@@ -12,7 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class', // Wajib 'class' agar kita bisa kontrol manual
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: { primary: '#2563EB', secondary: '#0F172A' }
@@ -23,46 +23,39 @@
 
     <style>
         /* ===== ANIMASI PAGE LOAD ===== */
-        @keyframes pageFade {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes pageFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        .page-enter { animation: pageFade 0.6s ease-out both; }
+        .animate-fade-up { animation: fadeUp 0.7s ease-out both; }
+        .animate-fade-up-delay-1 { animation: fadeUp 0.8s ease-out 0.15s both; }
+        .animate-fade-up-delay-2 { animation: fadeUp 0.9s ease-out 0.3s both; }
+        .animate-scale-in { animation: scaleIn 0.5s ease-out both; }
 
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.97); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-
-        .page-enter {
-            animation: pageFade 0.6s ease-out both;
-        }
-
-        .animate-fade-up {
-            animation: fadeUp 0.7s ease-out both;
-        }
-
-        .animate-fade-up-delay-1 {
-            animation: fadeUp 0.8s ease-out 0.15s both;
-        }
-
-        .animate-fade-up-delay-2 {
-            animation: fadeUp 0.9s ease-out 0.3s both;
-        }
-
-        .animate-scale-in {
-            animation: scaleIn 0.5s ease-out both;
+        /* ===== PARALLAX STYLES ===== */
+        .video-docker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
         }
 
         .video-docker video {
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            /* Will-change untuk performa rendering parallax yang lebih halus */
+            will-change: transform; 
         }
+
         .video-docker::after {
             content: "";
             position: absolute;
@@ -70,22 +63,24 @@
             height: 100%;
             top: 0;
             left: 0;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.5); /* Sedikit ditransparankan agar video lebih jelas */
             z-index: 1;
+        }
+
+        /* Class khusus untuk Parallax Gambar (Pure CSS) */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 
     <script>
-        // Logika Baru: 
-        // Cek apakah user PERNAH memilih 'light' sebelumnya?
         if (localStorage.getItem('theme') === 'light') {
-            // Jika pernah pilih light, matikan dark mode
             document.documentElement.classList.remove('dark');
         } else {
-            // Jika belum pernah pilih (pengunjung baru) ATAU pernah pilih dark:
-            // PAKSA NYALAKAN DARK MODE
             document.documentElement.classList.add('dark');
-            // Simpan state default ke dark
             localStorage.setItem('theme', 'dark');
         }
     </script>
@@ -100,12 +95,8 @@
             
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
                 <div class="hidden md:flex space-x-3 mr-4">
-                    <a href="{{ route('login') }}" class="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-lg text-sm px-4 py-2 text-center transition">
-                        Masuk
-                    </a>
-                    <a href="{{ route('register') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-lg shadow-blue-600/30">
-                        Daftar Sekarang
-                    </a>
+                    <a href="{{ route('login') }}" class="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-lg text-sm px-4 py-2 text-center transition">Masuk</a>
+                    <a href="{{ route('register') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-lg shadow-blue-600/30">Daftar Sekarang</a>
                 </div>
 
                 <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -117,11 +108,11 @@
     </nav>
 
     <section class="relative h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden">
-        <div class="video-docker absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <video class="min-w-full min-h-full absolute object-cover" src="{{ asset('assets/videos/kampus3.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
+        <div class="video-docker">
+            <video id="hero-video" class="absolute object-cover" src="{{ asset('assets/videos/kampus3.mp4') }}" type="video/mp4" autoplay muted loop playsinline></video>
         </div>
 
-        <div class="relative z-10 px-4 max-w-4xl mx-auto mt-16 animate-fade-up-delay-1">
+        <div class="relative z-10 px-4 max-w-4xl mx-auto mt-16 animate-fade-up-delay-1 parallax-content">
             <span class="inline-block py-1 px-3 rounded-full bg-blue-600/90 text-white text-sm font-semibold mb-6 tracking-wide shadow-lg backdrop-blur-sm border border-blue-400">
                 Penerimaan Mahasiswa Baru 2025/2026
             </span>
@@ -159,7 +150,16 @@
         </dl>
     </section>
 
-    <section class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300 animate-fade-up-delay-2">
+    <section class="parallax-bg relative py-32 mt-20 flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-blue-900/70 dark:bg-slate-900/80"></div>
+        <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Siap Menjadi Bagian dari Kami?</h2>
+            <p class="text-slate-200 text-lg mb-8">Dapatkan beasiswa penuh untuk mahasiswa berprestasi dan akses ke fasilitas kelas dunia.</p>
+            <a href="/beasiswa" class="inline-block px-8 py-3 bg-white text-blue-900 font-bold rounded-full hover:bg-slate-100 transition shadow-lg">Pelajari Beasiswa</a>
+        </div>
+    </section>
+
+    <section class="bg-slate-50 dark:bg-slate-950 py-20 transition-colors duration-300">
         <div class="max-w-screen-xl px-4 mx-auto">
             <div class="text-center mb-16">
                 <span class="text-blue-600 dark:text-blue-400 font-bold tracking-wide uppercase text-sm">Galeri Kampus</span>
@@ -205,7 +205,6 @@
         </div>
     </section>
 
-        <!-- SECTION PENGUMUMAN -->
     @if($pengumuman->count() > 0)
         @php
             $highlight = $pengumuman->first();
@@ -238,9 +237,6 @@
                                 </span>
                                 <span class="h-1 w-1 rounded-full bg-slate-400"></span>
                                 <span>{{ $highlight->created_at->translatedFormat('d M Y') }}</span>
-                                <span class="text-[11px] text-slate-400">
-                                    ({{ $highlight->created_at->diffForHumans() }})
-                                </span>
                             </div>
 
                             <h3 class="text-2xl font-bold text-slate-900 dark:text-white leading-snug">
@@ -250,24 +246,11 @@
                             <p class="text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                                 {{ $highlight->isi }}
                             </p>
-
-                            <div class="pt-4 border-t border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-sm">
-                                        ℹ️
-                                    </span>
-                                    <span>Pastikan Anda membaca pengumuman ini dengan saksama.</span>
-                                </div>
-                            </div>
                         </div>
                     </article>
 
                     {{-- Daftar pengumuman lain --}}
                     <div class="space-y-4">
-                        <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-wide uppercase">
-                            Pengumuman Lainnya
-                        </h4>
-
                         @forelse($others as $info)
                             <article class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm hover:shadow-md transition duration-200 group animate-scale-in">
                                 <div class="flex items-start gap-3">
@@ -277,11 +260,6 @@
                                         </span>
                                     </div>
                                     <div class="flex-1 space-y-1.5">
-                                        <div class="flex items-center gap-2 text-[11px] text-slate-400">
-                                            <span>{{ $info->created_at->translatedFormat('d M Y') }}</span>
-                                            <span class="h-1 w-1 rounded-full bg-slate-400"></span>
-                                            <span>{{ $info->created_at->diffForHumans() }}</span>
-                                        </div>
                                         <h5 class="text-sm font-semibold text-slate-900 dark:text-white line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
                                             {{ $info->judul }}
                                         </h5>
@@ -292,17 +270,13 @@
                                 </div>
                             </article>
                         @empty
-                            <p class="text-sm text-slate-500 dark:text-slate-400">
-                                Belum ada pengumuman tambahan.
-                            </p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Belum ada pengumuman tambahan.</p>
                         @endforelse
                     </div>
                 </div>
             </div>
         </section>
     @endif
-
-
 
     <footer class="bg-slate-900 dark:bg-slate-950 text-white pt-16 pb-8 border-t-4 border-blue-600 transition-colors duration-300">
         <div class="max-w-screen-xl mx-auto px-4">
@@ -327,16 +301,28 @@
     <script>
         const html = document.documentElement;
         
+        // --- LOGIKA TEMA (DARK/LIGHT) ---
         function toggleTheme() {
             if (html.classList.contains('dark')) {
-                // Pindah ke Light
                 html.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
             } else {
-                // Pindah ke Dark
                 html.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
+        }
+
+        // --- LOGIKA PARALLAX VIDEO ---
+        // Kita hanya mengaktifkan ini di Desktop, karena di Mobile performanya kadang berat
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', function() {
+                const video = document.getElementById('hero-video');
+                const scrollPosition = window.pageYOffset;
+                
+                // Pindahkan video setengah kecepatan scroll (0.5)
+                // Ini membuat efek teks bergerak lebih cepat dari background
+                video.style.transform = `translate(-50%, calc(-50% + ${scrollPosition * 0.5}px))`;
+            });
         }
     </script>
 </body>

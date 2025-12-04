@@ -34,6 +34,24 @@ Route::get('/tentangkami', function () {
     return view('tentangkami.index');
 })->name('tentangkami');
 
+Route::get('/beasiswa', function () {
+    return view('beasiswa.index');
+})->name('beasiswa');
+
+Route::get('/download-brosur-img', function () {
+    // 1. Tentukan lokasi file di folder public
+    $filePath = public_path('assets/brosur/brosur.png');
+
+    // 2. Cek apakah file benar-benar ada
+    if (file_exists($filePath)) {
+        // 3. Download file dengan nama baru yang keren (opsional)
+        return response()->download($filePath, 'Brosur-Resmi-Ucok-University.jpg');
+    }
+
+    // 4. Jika file tidak ada, tampilkan error 404
+    abort(404, 'File brosur tidak ditemukan.');
+})->name('download.brosur.img');
+
 // 2. Authentication Routes (Tamu)
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
