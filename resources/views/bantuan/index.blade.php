@@ -213,30 +213,12 @@
                             (nama, email, nomor HP), lalu verifikasi akun melalui email yang dikirim sistem.
                         </p>
                     </div>
-                </div>
+                </div>        
 
                 <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden">
                     <button type="button" class="faq-toggle w-full flex items-center justify-between px-4 md:px-5 py-3 md:py-4 text-left">
                         <div class="flex items-center gap-3">
                             <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">2</span>
-                            <span class="font-semibold text-sm md:text-base text-slate-900 dark:text-white">Saya lupa kata sandi, apa yang harus dilakukan?</span>
-                        </div>
-                        <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div class="faq-content px-4 md:px-5 pb-4 text-sm text-slate-600 dark:text-slate-300 hidden">
-                        <p>
-                            Gunakan fitur <strong>Lupa Kata Sandi</strong> di halaman login. Masukkan email yang terdaftar, 
-                            lalu cek inbox/spam untuk link reset kata sandi dari sistem.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden">
-                    <button type="button" class="faq-toggle w-full flex items-center justify-between px-4 md:px-5 py-3 md:py-4 text-left">
-                        <div class="flex items-center gap-3">
-                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">3</span>
                             <span class="font-semibold text-sm md:text-base text-slate-900 dark:text-white">Metode pembayaran apa saja yang tersedia?</span>
                         </div>
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +236,7 @@
                 <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden">
                     <button type="button" class="faq-toggle w-full flex items-center justify-between px-4 md:px-5 py-3 md:py-4 text-left">
                         <div class="flex items-center gap-3">
-                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">4</span>
+                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">3</span>
                             <span class="font-semibold text-sm md:text-base text-slate-900 dark:text-white">Kapan jadwal pengumuman hasil seleksi?</span>
                         </div>
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -272,7 +254,7 @@
                 <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden">
                     <button type="button" class="faq-toggle w-full flex items-center justify-between px-4 md:px-5 py-3 md:py-4 text-left">
                         <div class="flex items-center gap-3">
-                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">5</span>
+                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">4</span>
                             <span class="font-semibold text-sm md:text-base text-slate-900 dark:text-white">Saya sudah bayar tapi status belum terverifikasi, kenapa?</span>
                         </div>
                         <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -343,7 +325,7 @@
                         Konsultasi cepat melalui WhatsApp admin PMB:
                     </p>
                     <p class="mt-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
-                        08xx-xxxx-xxxx
+                        0811-2222-3333
                     </p>
                     <p class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                         *Nomor ini hanya untuk chat, tidak menerima panggilan.

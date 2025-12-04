@@ -115,7 +115,7 @@
                     <dl class="space-y-3 text-sm text-slate-200">
                         <div class="flex items-center justify-between">
                             <dt>Tahun Berdiri</dt>
-                            <dd class="font-semibold">20XX</dd>
+                            <dd class="font-semibold">2025</dd>
                         </div>
                         <div class="flex items-center justify-between">
                             <dt>Jumlah Program Studi</dt>
@@ -354,7 +354,7 @@
                             Kaprodi S1 Manajemen
                         </p>
                         <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">
-                            Dr. Cindy Valentina, S.E., M.M.
+                            Dr. Cindy Valencia, S.E., M.M.
                         </p>
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                             Mengembangkan kualitas pembelajaran di bidang manajemen dan kewirausahaan.

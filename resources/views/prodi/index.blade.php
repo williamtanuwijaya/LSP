@@ -329,7 +329,7 @@
                             </div>
                             <div class="flex justify-between">
                                 <dt>Gelar Lulusan</dt>
-                                <dd class="font-semibold text-slate-800 dark:text-slate-200">A.Md.Kom.</dd>
+                                <dd class="font-semibold text-slate-800 dark:text-slate-200">S.Kom.</dd>
                             </div>
                         </dl>
                         <div class="mt-5 flex items-center justify-between">
